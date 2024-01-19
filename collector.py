@@ -57,15 +57,14 @@ def save_to_csv(dataframe, file_path):
         print(f"Error saving data to CSV: {e}")
 
 
+def tosave():
+    # Example usage:
+    days = 2000
+    btc_data = get_price_data(days, coin="bitcoin")
+    # shiba_data = get_price_data(days, coin="shiba")
+    tron_data = get_price_data(days, coin="tron")
+    # eth_data = get_price_data(days, coin="ethereum")
+    merged_data = pd.merge(btc_data, tron_data, on="timestamp", suffixes=('_btc', '_tron'))
+    # print(btc_data)
 
-# Example usage:
-days = 20
-btc_data = get_price_data(days, coin="bitcoin")
-shiba_data = get_price_data(days, coin="shiba")
-tron_data = get_price_data(days, coin="tron")
-eth_data = get_price_data(days, coin="ethereum")
-
-merged_data = pd.merge(btc_data, tron_data, on="timestamp", suffixes=('_btc', '_tron'))
-print(btc_data)
-
-# save_to_csv(merged_data, "Data/data.csv")
+    save_to_csv(merged_data, "Data/data.csv")
