@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: rgb(234, 249, 234);
+    background-color: rgb(52, 67, 63);
+}
+
+.container {
+    display: flex;
+    flex-direction: space-between;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+
+h1 {
+    margin-bottom: 20px; /* Add margin to move the text away from the icons */
+    text-align: center;
+}
+
+.icon {
+    margin: 20px;
+    cursor: pointer;
+}
+
+.icon img {
+    width: 400px; /* Adjust the width as needed */
+    height: 400px; /* Adjust the height as needed */
+}
+
+.hidden {
+    display: none;
+}
+
+.icon:hover img {
+    transform: scale(1.05); /* Example: scale on hover */
+    transition: transform 0.3s ease; /* Example: smooth transition */
+}
