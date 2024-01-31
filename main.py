@@ -7,7 +7,7 @@ def run():
         # print(data)
         model1, scaler1= models.knn_model()
         # model2, scaler2 = ann_model()
-        input_data = [0.8, 7194154492, 235471805, 46621242074, 4118765210]
+        input_data = [0.1, 7194154492, 235471805, 46621242074, 4118765210]
         models.predict_btc_price(input_data, model1, scaler1)
     except:
         pass

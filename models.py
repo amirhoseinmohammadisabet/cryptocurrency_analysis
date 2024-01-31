@@ -47,3 +47,4 @@ def predict_btc_price(input_data, model, scaler):
     btc_price_prediction = model.predict(input_data_scaled)
     print(f'Predicted BTC Price: {btc_price_prediction[0]}')
 
+    

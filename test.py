@@ -2,13 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.arima.model import ARIMA
 
-# Load historical data (replace 'your_data.csv' with your dataset)
 data = pd.read_csv('Data/data.csv')
 data['timestamp'] = pd.to_datetime(data['timestamp'])
 data.set_index('timestamp', inplace=True)
-data.index.freq = 'D'  # Set the frequency to daily
+data.index.freq = 'D' 
 
-# Assuming 'price_btc' is the column you want to predict
 target_variable = 'price_btc'
 
 # Split data into training and testing sets
@@ -16,12 +14,12 @@ train_size = int(len(data) * 0.8)
 train, test = data.iloc[:train_size], data.iloc[train_size:]
 
 # Train ARIMA model
-order = (10, 20, 30)  # Example order, you may need to tune this
+order = (10, 20, 30)  
 model = ARIMA(train[target_variable], order=order)
 fit_model = model.fit()
 
 # Make predictions for the next month
-forecast_steps = 30  # Adjust this based on the frequency of your data
+forecast_steps = 30 
 forecast = fit_model.get_forecast(steps=forecast_steps)
 
 # Plotting
