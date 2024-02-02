@@ -1,34 +1,53 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from statsmodels.tsa.arima.model import ARIMA
+import mpld3
 
-data = pd.read_csv('Data/data.csv')
-data['timestamp'] = pd.to_datetime(data['timestamp'])
-data.set_index('timestamp', inplace=True)
-data.index.freq = 'D' 
 
-target_variable = 'price_btc'
+# Read CSV file into a DataFrame
+df = pd.read_csv('Data/data.csv')
 
-# Split data into training and testing sets
-train_size = int(len(data) * 0.8)
-train, test = data.iloc[:train_size], data.iloc[train_size:]
+# Convert 'timestamp' column to datetime format
+df['timestamp'] = pd.to_datetime(df['timestamp'])
 
-# Train ARIMA model
-order = (10, 20, 30)  
-model = ARIMA(train[target_variable], order=order)
-fit_model = model.fit()
+# Create subplots with added margins
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(12, 6), gridspec_kw={'wspace': 0.3})
 
-# Make predictions for the next month
-forecast_steps = 30 
-forecast = fit_model.get_forecast(steps=forecast_steps)
+# Plot Bitcoin Price and Market Cap
+axs[0, 0].plot(df['timestamp'], df['price_btc'], label='Bitcoin Price')
+axs[0, 0].set_xlabel('Timestamp')
+axs[0, 0].set_ylabel('Price (BTC)')
+axs[0, 0].set_title('Bitcoin Price Over Time')
+axs[0, 0].legend()
 
-# Plotting
-plt.figure(figsize=(12, 6))
-plt.plot(train.index, train[target_variable], label='Training Data')
-plt.plot(test.index, test[target_variable], label='Testing Data')
-plt.plot(forecast.predicted_mean.index, forecast.predicted_mean, label='Forecast')
-plt.title('Bitcoin Price Prediction')
-plt.xlabel('Date')
-plt.ylabel('Bitcoin Price')
-plt.legend()
-plt.show()
+axs[0, 1].plot(df['timestamp'], df['market_cap_btc'], label='Bitcoin Market Cap', color='orange')
+axs[0, 1].set_xlabel('Timestamp')
+axs[0, 1].set_ylabel('Market Cap (BTC)')
+axs[0, 1].set_title('Bitcoin Market Cap Over Time')
+axs[0, 1].legend()
+
+# Plot Tron Price and Market Cap
+axs[1, 0].plot(df['timestamp'], df['price_tron'], label='Tron Price', color='green')
+axs[1, 0].set_xlabel('Timestamp')
+axs[1, 0].set_ylabel('Price (TRON)')
+axs[1, 0].set_title('Tron Price Over Time')
+axs[1, 0].legend()
+
+axs[1, 1].plot(df['timestamp'], df['market_cap_tron'], label='Tron Market Cap', color='red')
+axs[1, 1].set_xlabel('Timestamp')
+axs[1, 1].set_ylabel('Market Cap (TRON)')
+axs[1, 1].set_title('Tron Market Cap Over Time')
+axs[1, 1].legend()
+
+# Manually adjust layout parameters
+plt.subplots_adjust(left=0.1, right=0.9, bottom=0.1, top=0.9, wspace=0.4, hspace=0.4)
+
+# Convert to HTML
+html_plot = mpld3.fig_to_html(plt.gcf())
+
+# Save the HTML plot to a file or serve it using a web framework
+with open('templates/output_plot.html', 'w') as f:
+    f.write(html_plot)
+
+
+# Show the plot
+# plt.show()

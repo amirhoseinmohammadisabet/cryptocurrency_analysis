@@ -12,20 +12,6 @@ import numpy as np
 # Load hypothetical CSV file
 df = pd.read_csv('Data/data.csv')
 
-# special evaluation
-def eval(y_test, predictions):
-    mse = mean_squared_error(y_test, predictions)
-    r_squared = r2_score(y_test, predictions)
-    r_squared_percentage = r_squared * 100
-    rmse = np.sqrt(mse)
-    normalized_rmse = rmse / (np.max(predictions) - np.min(predictions))
-    error_rating = normalized_rmse
-    accuracy = (1 - error_rating) * 100
-    print(f'Accuracy: {accuracy:.2f}%')
-    print(f'Mean Squared Error: {mse}')
-    print(f'R-squared: {r_squared_percentage:.2f}%')
-
-
 # Function to train a regression model and make predictions
 def predict_currency_price(algorithm, base_currency, target_currency):
     # Extract relevant columns
@@ -65,8 +51,14 @@ def predict_currency_price(algorithm, base_currency, target_currency):
     predictions = model.predict(X_test)
 
     # Evaluate the model
-    eval(y_test, predictions)
-    
+    mse = mean_squared_error(y_test, predictions)
+    r_squared = r2_score(y_test, predictions)
+
+    # Convert R-squared to a percentage
+    r_squared_percentage = r_squared * 100
+
+    print(f'Mean Squared Error: {mse}')
+    print(f'R-squared: {r_squared_percentage:.2f}%')
 
     # Ask user for input to make a prediction
     user_input = np.array([float(x) for x in input(f'Enter the {base_currency} values (price, market cap, total volume): ').split(',')])
@@ -76,7 +68,6 @@ def predict_currency_price(algorithm, base_currency, target_currency):
     predicted_price = model.predict(user_input_scaled)
     print(f'Predicted {target_currency} price using {algorithm} regression: {predicted_price[0]}')
 
-
 # Example usage
 predict_currency_price("linear", "btc", "tron")
 predict_currency_price("decision_tree", "btc", "tron")
@@ -84,10 +75,3 @@ predict_currency_price("random_forest", "btc", "tron")
 predict_currency_price("gradient_boosting", "btc", "tron")
 predict_currency_price("knn", "btc", "tron")
 predict_currency_price("ann", "btc", "tron")
-
-
-
-
-
-
-    

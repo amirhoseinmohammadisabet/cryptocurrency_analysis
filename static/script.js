@@ -24,58 +24,6 @@ function displayResults(results) {
     resultsContainer.innerHTML = table;
 }
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    var chartTypeSelect = document.getElementById('chartType');
-    var chartCanvas = document.getElementById('myChart');
-    var ctx = chartCanvas.getContext('2d');
-
-    // Initial chart type
-    var selectedChartType = chartTypeSelect.value;
-
-    // Initial data (you may customize this based on your CSV file structure)
-    var data = {
-        labels: ['Label 1', 'Label 2', 'Label 3'],
-        datasets: [{
-            label: 'Dataset',
-            data: [10, 20, 30],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-            ],
-            borderWidth: 1,
-        }],
-    };
-
-    // Create initial chart
-    var myChart = new Chart(ctx, {
-        type: selectedChartType,
-        data: data,
-    });
-
-    // Update chart when the user changes the chart type
-    chartTypeSelect.addEventListener('change', function () {
-        selectedChartType = chartTypeSelect.value;
-        updateChart();
-    });
-
-    function updateChart() {
-        // Destroy the previous chart instance
-        myChart.destroy();
-
-        // Create a new chart based on the selected type
-        myChart = new Chart(ctx, {
-            type: selectedChartType,
-            data: data,
-        });
-    }
-});
     
 
 function showName(name) {
