@@ -18,6 +18,10 @@
             <img src="{{ url_for('static', filename='visualize.jpg') }}" alt="Visualization Icon">
             <p id="visualizationName" class="hidden">Visualization</p>
         </div>
+        <div class="icon" onmouseover="showName('Prediction')" onmouseout="hideName()" onclick="window.location.href='/prediction'">
+            <img src="{{ url_for('static', filename='prediction.jpg') }}" alt="prediction Icon">
+            <p id="predictionName" class="hidden">Prediction</p>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    font-size: small;
     margin: 0;
     padding: 0;
     color: rgb(234, 249, 234);
@@ -16,6 +17,11 @@ body {
 
 
 h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
     margin-bottom: 20px;
     text-align: center;
 }
@@ -39,3 +45,66 @@ h1 {
     transition: transform 0.3s ease;
 }
 
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+select{
+    display: flex;
+    margin: 0;
+    width: 100px;
+    margin-bottom: 10px;
+    
+}
+
+input {
+    
+    height: 20px;
+    margin: 0;
+    margin-bottom: 10px;
+    background-color: rgb(216, 223, 220);
+    width: 200px;
+    
+}
+button {
+    padding: 8px;
+    background-color: #0a2a0b;
+    width: 100%;
+    padding: 15px;
+    color: white;
+    cursor: pointer;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.allinputs {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    max-width: 500px; 
+    margin: 0 auto;
+}
+
+.results {
+    max-width: 600px; 
+    margin: 0 auto;
+}
+
+#predictionForm{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Currency Prediction</title>
+    
+</head>
+<body>
+    <div class="allinputs">
+        <h2>Currency Prediction</h2>
+        <form method="post" id="predictionForm">
+            <label for="algorithm">Algorithm:</label>
+            <select id="algorithm" name="algorithm">
+                {% for algo in algorithms %}
+                    <option value="{{ algo }}">{{ algo }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="base_currency">Base Currency:</label>
+            <select id="base_currency" name="base_currency">
+                {% for currency in currencies %}
+                    <option value="{{ currency }}">{{ currency }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="target_currency">Target Currency:</label>
+            <select id="target_currency" name="target_currency">
+                {% for currency in currencies %}
+                    <option value="{{ currency }}">{{ currency }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="market_cap">Enter Price:</label>
+            <input type="text" id="price" placeholder="Enter Price..." name="price" required="">
+
+            <label for="market_cap">Enter Market Cap:</label>
+            <input type="text" id="market_cap" placeholder="Enter Market Cap..." name="market_cap" required="">
+
+            <label for="total_volume">Enter Total Volume:</label>
+            <input type="text" id="total_volume" placeholder="Enter Total Volume" name="total_volume" required="">
+            
+            <form>
+                <button type="button" onclick="predict()" id="submitBtn">Predict</button>
+            </form>
+        </form>
+    </div>
+
+    
+
+    <div class="results" id="predictionResult" style="display: none;">
+        <h3>Prediction Result</h3>
+        <table>
+            <tr>
+                <th>Mean Squared Error</th>
+                <td id="mse"></td>
+            </tr>
+            <tr>
+                <th>R-squared</th>
+                <td id="r_squared"></td>
+            </tr>
+            <tr>
+                <th>Predicted Price</th>
+                <td id="predicted_price"></td>
+            </tr>
+            <tr>
+                <th>Target Amount</th>
+                <td id="target_amount"></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function predict() {
+            var form = document.getElementById('predictionForm');
+            var formData = new FormData(form);
+    
+            fetch('/prediction', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('mse').innerText = data.result.mse;
+                document.getElementById('r_squared').innerText = data.result.r_squared;
+                document.getElementById('predicted_price').innerText = data.result.predicted_price;
+                document.getElementById('target_amount').innerText = data.result.target_amount;
+    
+                document.getElementById('predictionResult').style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>
