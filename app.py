@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from models import predict_currency_price
 import csv
-import test
+import visualization as vis
 
 app = Flask(__name__)
 
@@ -34,10 +34,10 @@ def prediction():
 
     return render_template('prediction.html', algorithms=algorithms, currencies=currencies)
 
-@app.route('/output_plot')
-def output_plot():
-    test()
-    return render_template('output_plot.html')
+@app.route('/plot')
+def plot():
+    vis.generate_plot_html("btc")
+    return render_template('plot.html')
 
 @app.route('/page1', methods=['GET', 'POST'])
 def page1():
