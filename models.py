@@ -74,24 +74,17 @@ def predict_currency_price(algorithm, base_currency, target_currency, price, mar
     print(f'R-squared: {evals["r-squared"]:.2f}%')
 
     # Use the mean of the target variable as a placeholder for target amount
-    target_amount = np.mean(y)  # Replace with your choice of placeholder value
+    target_amount = np.mean(y)  
     
     # Convert ndarray to list before returning
     return {
         'mse': evals["mse"],
         'r_squared': evals["r-squared"],
         'predicted_price': predicted_price[0],
-        'target_amount': target_amount  # You need to calculate or fetch this value based on your logic
+        'target_amount': target_amount  
     }
 
 
-# Example usage
-# predict_currency_price("linear", "btc", "tron")
-# predict_currency_price("decision_tree", "btc", "tron")
-# predict_currency_price("random_forest", "btc", "tron")
-# predict_currency_price("gradient_boosting", "btc", "tron")
-# predict_currency_price("knn", "btc", "tron")
-# predict_currency_price("ann", "btc", "tron")
 
 
 

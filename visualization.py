@@ -40,8 +40,8 @@ def generate_plot_html(currency):
             xaxis_title='Date',
             yaxis_title=f"{currency.upper()} Price",
             xaxis=dict(rangeslider=dict(visible=True), type='date'),
-            paper_bgcolor='white',  # Set the background color
-            plot_bgcolor='antiquewhite'  # Set the plot area color
+            paper_bgcolor='white',  
+            plot_bgcolor='antiquewhite' 
         )
 
         # Save the plot to an HTML file
@@ -51,7 +51,5 @@ def generate_plot_html(currency):
         return plot_filename
     else:
         print("Give it a valid currency")
-
-# Example usage
 
 
