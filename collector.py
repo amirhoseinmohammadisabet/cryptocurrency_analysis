@@ -3,7 +3,6 @@ import pandas as pd
 from datetime import datetime, timedelta
 from functools import reduce
 
-
 def read_data_pd(csv_file_name):
     try:
         data = pd.read_csv(csv_file_name)
@@ -68,3 +67,48 @@ def tosave():
     # print(btc_data)
 
     save_to_csv(merged_data, "Data/data.csv")
+
+
+def crypto_for_clustering():
+    import yfinance as yf
+    import pandas as pd
+
+    # List of 30 most important cryptocurrencies
+    cryptocurrencies = [
+        "ETH-USD", "BNB-USD", "ADA-USD", "XRP-USD",
+        "LTC-USD", "ALGO-USD", "MATIC-USD", "FIL-USD", "TRX-USD",
+        "XTZ-USD", "VET-USD", "EGLD-USD", "XLM-USD", "AAVE-USD",
+        "SUSHI-USD", "CAKE-USD", "THETA-USD", "EOS-USD", "CHZ-USD",
+        "DOGE-USD", "ZEC-USD", "AAVE-USD", "AVAX-USD", "ATOM-USD",
+        "NEO-USD", "ATOM-USD", "XMR-USD", "SOL-USD", "DOT-USD",
+        "TRX-USD", "SHIB-USD","BTC-USD","YFI-USD",
+        "UNI-USD", "MKR-USD", "LINK-USD", "SNX-USD",
+        "HT-USD", "FTT-USD", "ENJ-USD", "MANA-USD", 
+        "IOST-USD", "ICX-USD", "REN-USD", "BTT-USD",
+        "LRC-USD", "ZRX-USD", "OMG-USD", "1INCH-USD", "WAVES-USD",
+        "SC-USD", "BCH-USD", "QTUM-USD", "DASH-USD", "RVN-USD",
+        "HBAR-USD", "XEM-USD", "WTC-USD", "BAT-USD", "XDC-USD",
+        "ANKR-USD", "HOT-USD", "ETC-USD", "CRV-USD", "DOGE-USD",
+        "KSM-USD", "SNX-USD", "NEAR-USD", "REP-USD",
+        "REN-USD", "ZIL-USD", "RUNE-USD", "MIR-USD", "AAVE-USD",
+        "SKL-USD", "ALGO-USD", "MANA-USD", "STX-USD", "ICP-USD",
+        "HBAR-USD", "NU-USD", "BNT-USD", "BTS-USD", "SXP-USD",
+        "ARDR-USD", "CELO-USD", "LSK-USD", "KNC-USD", "GNO-USD",
+        "RLC-USD", "BAL-USD", "FORTH-USD", "ETN-USD", "DCR-USD"
+    ]
+
+    # Fetch historical data for each cryptocurrency
+    data = {}
+    for cryptocurrency in cryptocurrencies:
+        df = yf.download(cryptocurrency, start="2023-02-06", end="2024-02-06")
+        data[cryptocurrency] = df['Close']
+
+    # Convert data dictionary to DataFrame
+    df = pd.DataFrame(data)
+    df.to_csv('Data/cryptocurrency_prices_cluster.csv')
+
+    df = df.T
+
+    # Save data to CSV file
+    df.to_csv('Data/cryptocurrency_prices_cluster_transposed.csv')
+    return df

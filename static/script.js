@@ -23,8 +23,7 @@ function displayResults(results) {
 
     resultsContainer.innerHTML = table;
 }
-
-    
+   
 
 function showName(name) {
     var nameElement = document.getElementById(name.toLowerCase() + 'Name');

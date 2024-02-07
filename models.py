@@ -85,6 +85,70 @@ def predict_currency_price(algorithm, base_currency, target_currency, price, mar
     }
 
 
+def choosing_four():
+    import pandas as pd
+    import numpy as np
+    from sklearn.cluster import KMeans
+    from sklearn.decomposition import PCA
+    from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.impute import SimpleImputer
+    import matplotlib.pyplot as plt
+
+    # Load the data
+    data = pd.read_csv("Data/cryptocurrency_prices_cluster_transposed.csv", index_col=0)
+
+    # Handle missing values
+    imputer = SimpleImputer(strategy='mean')
+    data_imputed = imputer.fit_transform(data)
+
+    # Normalize the data
+    scaler = StandardScaler()
+    data_normalized = scaler.fit_transform(data_imputed)
+
+    # Perform KMeans clustering
+    kmeans = KMeans(n_clusters=4, random_state=42)
+    clusters = kmeans.fit_predict(data_normalized)
+
+    # Apply PCA for visualization
+    pca = PCA(n_components=2)
+    data_pca = pca.fit_transform(data_normalized)
+
+    # Apply LDA for visualization
+    lda = LDA(n_components=2)
+    data_lda = lda.fit_transform(data_normalized, clusters)
+
+    # Choose one crypto from each cluster randomly
+    chosen_cryptos = []
+    for cluster_id in range(4):
+        cluster_indices = np.where(clusters == cluster_id)[0]
+        chosen_crypto = np.random.choice(cluster_indices)
+        chosen_cryptos.append(chosen_crypto)
+
+    # Plot the scatter plot
+    plt.figure(figsize=(12, 6))
+
+    # PCA plot
+    plt.subplot(1, 2, 1)
+    plt.scatter(data_pca[:, 0], data_pca[:, 1], c=clusters, cmap='viridis', alpha=0.5)
+    for i, txt in enumerate(data.index):
+        plt.annotate(txt, (data_pca[i, 0], data_pca[i, 1]), fontsize=8)
+    plt.title('PCA')
+
+    # LDA plot
+    plt.subplot(1, 2, 2)
+    plt.scatter(data_lda[:, 0], data_lda[:, 1], c=clusters, cmap='viridis', alpha=0.5)
+    for i, txt in enumerate(data.index):
+        plt.annotate(txt, (data_lda[i, 0], data_lda[i, 1]), fontsize=8)
+    plt.title('LDA')
+
+    plt.tight_layout()
+    plt.show()
+
+    # Display chosen cryptocurrencies
+    print("Chosen cryptocurrencies from each cluster:")
+    for i, crypto_index in enumerate(chosen_cryptos):
+        print(f"Cluster {i+1}: {data.index[crypto_index]}")
 
 
 
