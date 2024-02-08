@@ -153,6 +153,94 @@ def choosing_four():
 
 
 
+def top4_correlation():
+    import pandas as pd
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+
+    # Load the CSV file into a DataFrame
+    data = pd.read_csv('Data/cryptocurrency_prices_cluster.csv')
+
+    # Assuming the first column contains the names of cryptocurrencies
+    # and the remaining columns contain the prices over time
+    cryptos = data.iloc[:, 0]
+    prices = data.iloc[:, 1:]
+
+    # Select the 4 cryptocurrencies you're interested in
+    selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
+
+    # Select columns corresponding to the selected cryptocurrencies
+    selected_prices = prices[selected_cryptos]
+
+    # Compute the correlation matrix
+    correlation_matrix = selected_prices.corr()
+
+    # Find the top 4 highly correlated cryptocurrencies for each selected cryptocurrency
+    top_positive_correlations = {}
+    top_negative_correlations = {}
+
+    print(correlation_matrix)
+
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+    plt.title('Correlation Heatmap of Selected Cryptocurrencies')
+    plt.xlabel('Cryptocurrencies')
+    plt.ylabel('Cryptocurrencies')
+    plt.show()
 
 
-    
+
+def top4_eda():
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    # Load the CSV file into a DataFrame
+    data = pd.read_csv('Data/cryptocurrency_prices_cluster.csv')
+
+    # Assuming the first column contains the names of cryptocurrencies
+    # and the remaining columns contain the prices over time
+    cryptos = data.iloc[:, 0]
+    prices = data.iloc[:, 1:]
+
+    # Select the 4 cryptocurrencies you're interested in
+    selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
+
+    # Select columns corresponding to the selected cryptocurrencies
+    selected_prices = prices[selected_cryptos]
+
+    # EDA for each selected cryptocurrency
+    fig, axes = plt.subplots(nrows=len(selected_cryptos), ncols=3, figsize=(16, 14))
+
+    for i, crypto in enumerate(selected_cryptos):
+        # Get the price data for the current cryptocurrency
+        crypto_prices = selected_prices[crypto]
+        
+        # Plot the temporal structure
+        axes[i, 0].plot(crypto_prices.index, crypto_prices.values, marker='o', linestyle='-')
+        axes[i, 0].set_title(f'{crypto} Prices')
+        axes[i, 0].set_xlabel('Time')
+        axes[i, 0].set_ylabel('Price')
+        axes[i, 0].grid(True)
+        
+        # Visualize the distribution of observations
+        sns.histplot(crypto_prices, kde=True, bins=30, color='skyblue', ax=axes[i, 1])
+        axes[i, 1].set_title(f'Distribution of {crypto} Prices')
+        axes[i, 1].set_xlabel('Price')
+        axes[i, 1].set_ylabel('Frequency')
+        axes[i, 1].grid(True)
+        
+        # Investigate the change in distribution over intervals
+        first_half_prices = crypto_prices.iloc[:len(crypto_prices) // 2]
+        second_half_prices = crypto_prices.iloc[len(crypto_prices) // 2:]
+        
+        sns.histplot(first_half_prices, kde=True, bins=30, color='blue', label='First Half', ax=axes[i, 2])
+        sns.histplot(second_half_prices, kde=True, bins=30, color='orange', label='Second Half', ax=axes[i, 2])
+        axes[i, 2].set_title(f'Distribution Comparison of {crypto} Prices')
+        axes[i, 2].set_xlabel('Price')
+        axes[i, 2].set_ylabel('Frequency')
+        axes[i, 2].legend()
+        axes[i, 2].grid(True)
+
+    plt.tight_layout()
+    plt.show()
