@@ -85,7 +85,7 @@ def predict_currency_price(algorithm, base_currency, target_currency, price, mar
     }
 
 
-def choosing_four():
+def choosing_four(palet):
     import pandas as pd
     import numpy as np
     from sklearn.cluster import KMeans
@@ -125,30 +125,34 @@ def choosing_four():
         chosen_crypto = np.random.choice(cluster_indices)
         chosen_cryptos.append(chosen_crypto)
 
-    # Plot the scatter plot
-    plt.figure(figsize=(12, 6))
+    if palet == 1:
+        # Plot the scatter plot
+        plt.figure(figsize=(12, 6))
 
-    # PCA plot
-    plt.subplot(1, 2, 1)
-    plt.scatter(data_pca[:, 0], data_pca[:, 1], c=clusters, cmap='viridis', alpha=0.5)
-    for i, txt in enumerate(data.index):
-        plt.annotate(txt, (data_pca[i, 0], data_pca[i, 1]), fontsize=8)
-    plt.title('PCA')
+        # PCA plot
+        plt.subplot(1, 2, 1)
+        plt.scatter(data_pca[:, 0], data_pca[:, 1], c=clusters, cmap='viridis', alpha=0.5)
+        for i, txt in enumerate(data.index):
+            plt.annotate(txt, (data_pca[i, 0], data_pca[i, 1]), fontsize=8)
+        plt.title('PCA')
 
-    # LDA plot
-    plt.subplot(1, 2, 2)
-    plt.scatter(data_lda[:, 0], data_lda[:, 1], c=clusters, cmap='viridis', alpha=0.5)
-    for i, txt in enumerate(data.index):
-        plt.annotate(txt, (data_lda[i, 0], data_lda[i, 1]), fontsize=8)
-    plt.title('LDA')
+        # LDA plot
+        plt.subplot(1, 2, 2)
+        plt.scatter(data_lda[:, 0], data_lda[:, 1], c=clusters, cmap='viridis', alpha=0.5)
+        for i, txt in enumerate(data.index):
+            plt.annotate(txt, (data_lda[i, 0], data_lda[i, 1]), fontsize=8)
+        plt.title('LDA')
 
-    plt.tight_layout()
-    plt.show()
+        plt.tight_layout()
+        plt.show()
 
     # Display chosen cryptocurrencies
+    x = []
     print("Chosen cryptocurrencies from each cluster:")
     for i, crypto_index in enumerate(chosen_cryptos):
         print(f"Cluster {i+1}: {data.index[crypto_index]}")
+        x.append(data.index[crypto_index])
+    return x
 
 
 
@@ -166,7 +170,9 @@ def top4_correlation():
     prices = data.iloc[:, 1:]
 
     # Select the 4 cryptocurrencies you're interested in
-    selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
+    selected_cryptos = choosing_four(0)
+    print(selected_cryptos)
+    # selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
 
     # Select columns corresponding to the selected cryptocurrencies
     selected_prices = prices[selected_cryptos]
@@ -203,7 +209,9 @@ def top4_eda():
     prices = data.iloc[:, 1:]
 
     # Select the 4 cryptocurrencies you're interested in
-    selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
+    selected_cryptos = choosing_four(0)
+
+    # selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
 
     # Select columns corresponding to the selected cryptocurrencies
     selected_prices = prices[selected_cryptos]

@@ -6,7 +6,9 @@ def run():
     print(price["predicted_price"])
 
     # col.crypto_for_clustering()
-    models.choosing_four()
+    models.choosing_four(1)
+    models.top4_correlation()
+    models.top4_eda()
 
 if __name__ == "__main__":
     run()

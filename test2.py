@@ -16,7 +16,7 @@ cryptos = data.iloc[:, 0]
 prices = data.iloc[:, 1:]
 
 # Select the 4 cryptocurrencies you're interested in
-selected_cryptos = ['MKR-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
+selected_cryptos = ['ETH-USD', 'BTC-USD', 'LINK-USD', 'YFI-USD']
 
 # Train-test split
 train_size = 0.8  # 80% of data for training, 20% for testing
