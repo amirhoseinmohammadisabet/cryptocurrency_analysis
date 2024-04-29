@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cryptocurrency Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Cryptocurrency Dashboard</h1>
+    <form action="/plot" method="post">
+        <label for="symbol">Symbol:</label>
+        <select id="symbol" name="symbol">
+            <option value="BTC-USD">Bitcoin (BTC)</option>
+            <option value="ETH-USD">Ethereum (ETH)</option>
+            <option value="ADA-USD">Cardano (ADA)</option>
+            <option value="TRX-USD">TRON (TRX)</option>
+        </select><br>
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date"><br>
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date"><br>
+        <input type="submit" value="Plot">
+    </form>
+    <div id="plot"></div>
+</body>
+</html>

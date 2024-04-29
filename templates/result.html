@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Trading Results</title>
+
+</head>
+<body>
+    <h1>Trading Results</h1>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Action</th>
+            <th>Price</th>
+            <th>Balance</th>
+        </tr>
+        {% for result in results %}
+        <tr>
+            <td>{{ result[0] }}</td>
+            <td>{{ result[1] }}</td>
+            <td>{{ result[2] }}</td>
+            <td>{{ result[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cryptocurrency Plotter</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: rgb(52, 67, 63);
+            color: rgb(234, 249, 234);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mt-4">Cryptocurrency Plotter</h1>
+
+    <div class="container">
+        <form action="/plot" method="post">
+            <div class="form-group">
+                <label for="cryptocurrency">Select Cryptocurrency:</label>
+                <select class="form-control" name="cryptocurrency" id="cryptocurrency">
+                    <option value="BTC-USD">Bitcoin (BTC)</option>
+                    <option value="TRX-USD">TRON (TRX)</option>
+                    <option value="ADA-USD">Cardano (ADA)</option>
+                    <option value="ETH-USD">Ethereum (ETH)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="period">Select Time Period:</label>
+                <select class="form-control" name="period" id="period">
+                    <option value="1d">1 Day</option>
+                    <option value="1wk">1 Week</option>
+                    <option value="1mo">1 Month</option>
+                    <option value="3mo">3 Months</option>
+                    <option value="6mo">6 Months</option>
+                    <option value="1y">1 Year</option>
+                    <option value="2y">2 Years</option>
+                    <option value="5y">5 Years</option>
+                    <option value="max">Max</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="chart_type">Select Chart Type:</label>
+                <select class="form-control" name="chart_type" id="chart_type">
+                    <option value="candlestick">Candlestick</option>
+                    <option value="line">Line Chart</option>
+                    <!-- Add more options for chart types if needed -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Plot</button>
+        </form>
+        <div id="plot" class="mt-4"></div>
+    </div>
+
+    <!-- Include Plotly.js for interactive charts -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</body>
+</html>

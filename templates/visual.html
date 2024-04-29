@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Visualization Page</title>
+</head>
+<body>
+    <h1>Visualization Page</h1>
+
+    <div class="container">
+        <div class="icon" onmouseover="showName('Prices')" onmouseout="hideName()" onclick="window.location.href='/show'">
+            <img src="{{ url_for('static', filename='show.jpg') }}" alt="show Icon">
+            <p id="showName" class="hidden">Prices</p>
+        </div>
+        <div class="icon" onmouseover="showName('Visualization')" onmouseout="hideName()" onclick="window.location.href='/forecast'">
+            <img src="{{ url_for('static', filename='forecast.jpg') }}" alt="forecast Icon">
+            <p id="forecastName" class="hidden">Forecast</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

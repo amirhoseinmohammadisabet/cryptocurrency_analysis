@@ -10,11 +10,11 @@
     <h1>Main Page</h1>
 
     <div class="container">
-        <div class="icon" onmouseover="showName('Analysis')" onmouseout="hideName()" onclick="window.location.href='/page1'">
+        <div class="icon" onmouseover="showName('Analysis')" onmouseout="hideName()" onclick="window.location.href='/signal'">
             <img src="{{ url_for('static', filename='analysis.jpg') }}" alt="Analysis Icon">
-            <p id="analysisName" class="hidden">Analysis</p>
+            <p id="analysisName" class="hidden">Signal</p>
         </div>
-        <div class="icon" onmouseover="showName('Visualization')" onmouseout="hideName()" onclick="window.location.href='/plot'">
+        <div class="icon" onmouseover="showName('Visualization')" onmouseout="hideName()" onclick="window.location.href='/visual'">
             <img src="{{ url_for('static', filename='visualize.jpg') }}" alt="Visualization Icon">
             <p id="visualizationName" class="hidden">Visualization</p>
         </div>
