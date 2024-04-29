@@ -1,4 +1,3 @@
-# Necessary libraries
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -67,16 +66,12 @@ X_test_lstm, y_test_lstm = create_dataset(test_data, time_steps)
 X_train_lstm = np.reshape(X_train_lstm, (X_train_lstm.shape[0], 1, X_train_lstm.shape[1]))
 X_test_lstm = np.reshape(X_test_lstm, (X_test_lstm.shape[0], 1, X_test_lstm.shape[1]))
 
-# LSTM
-X_train_lstm = X_train.reshape((X_train.shape[0], X_train.shape[1], 1))
-X_test_lstm = X_test.reshape((X_test.shape[0], X_test.shape[1], 1))
-
-lstm_model = Sequential()
-lstm_model.add(LSTM(50, activation='relu', input_shape=(1, 1)))
-lstm_model.add(Dense(1))
-lstm_model.compile(optimizer='adam', loss='mse')
-lstm_model.fit(X_train_lstm, y_train, epochs=200, verbose=0)
-lstm_forecast = lstm_model.predict(X_test_lstm)
+model_lstm = Sequential()
+model_lstm.add(LSTM(units=50, return_sequences=True, input_shape=(1, time_steps)))
+model_lstm.add(LSTM(units=50))
+model_lstm.add(Dense(1))
+model_lstm.compile(optimizer='adam', loss='mean_squared_error')
+model_lstm.fit(X_train_lstm, y_train_lstm, epochs=10, batch_size=1, verbose=2)
 
 
 # Prophet
@@ -118,7 +113,6 @@ plt.xlabel('Date')
 plt.ylabel('Price (USD)')
 plt.legend()
 plt.show()
-
 
 
 #plot each separately
