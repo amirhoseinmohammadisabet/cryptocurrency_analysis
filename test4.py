@@ -9,7 +9,7 @@ from statsmodels.tsa.arima.model import ARIMA
 from keras.models import Sequential
 from keras.layers import LSTM, Dense
 from prophet import Prophet
-from keras.layers import Dropout
+from sklearn.metrics import r2_score
 
 
 # Step 1: Data Collection
@@ -79,8 +79,81 @@ prophet_train_data = pd.DataFrame({'ds': btc_data.index, 'y': btc_data['Close'].
 prophet_model = Prophet()
 prophet_model.fit(prophet_train_data)
 
+
+
+# test
+# Linear Regression
+X_test_linear_reg = np.arange(train_size, len(btc_data)).reshape(-1, 1)
+
+# Ridge Regression
+X_test_ridge_reg = np.arange(train_size, len(btc_data)).reshape(-1, 1)
+
+# Lasso Regression
+X_test_lasso_reg = np.arange(train_size, len(btc_data)).reshape(-1, 1)
+
+
 # Step 4: Evaluation
-# For simplicity, let's skip evaluation for now
+
+
+# Evaluate Linear Regression
+linear_reg_train_preds = linear_reg.predict(X_train)
+linear_reg_test_preds = linear_reg.predict(X_test_linear_reg)
+
+linear_reg_train_mse = mean_squared_error(y_train, linear_reg_train_preds)
+linear_reg_test_mse = mean_squared_error(test_data[-len(X_test_linear_reg):], linear_reg_test_preds)
+
+print("Linear Regression Train MSE:", linear_reg_train_mse)
+print("Linear Regression Test MSE:", linear_reg_test_mse)
+
+# Evaluate Ridge Regression
+ridge_reg_train_preds = ridge_reg.predict(X_train)
+ridge_reg_test_preds = ridge_reg.predict(X_test_ridge_reg)
+
+ridge_reg_train_mse = mean_squared_error(y_train, ridge_reg_train_preds)
+ridge_reg_test_mse = mean_squared_error(test_data[-len(X_test_ridge_reg):], ridge_reg_test_preds)
+
+print("Ridge Regression Train MSE:", ridge_reg_train_mse)
+print("Ridge Regression Test MSE:", ridge_reg_test_mse)
+
+# Evaluate Lasso Regression
+lasso_reg_train_preds = lasso_reg.predict(X_train)
+lasso_reg_test_preds = lasso_reg.predict(X_test_lasso_reg)
+
+lasso_reg_train_mse = mean_squared_error(y_train, lasso_reg_train_preds)
+lasso_reg_test_mse = mean_squared_error(test_data[-len(X_test_lasso_reg):], lasso_reg_test_preds)
+
+print("Lasso Regression Train MSE:", lasso_reg_train_mse)
+print("Lasso Regression Test MSE:", lasso_reg_test_mse)
+
+# Evaluate ARIMA
+arima_train_preds = arima_model_fit.predict(start=train_size, end=train_size+test_size-1, typ='levels')
+arima_test_preds = arima_model_fit.forecast(test_size)
+
+arima_train_mse = mean_squared_error(train_data[-len(arima_train_preds):], arima_train_preds)
+arima_test_mse = mean_squared_error(test_data, arima_test_preds)
+
+print("ARIMA Train MSE:", arima_train_mse)
+print("ARIMA Test MSE:", arima_test_mse)
+
+# Evaluate LSTM
+lstm_train_preds = model_lstm.predict(X_train_lstm)
+lstm_test_preds = model_lstm.predict(X_test_lstm)
+
+lstm_train_mse = mean_squared_error(y_train_lstm, lstm_train_preds)
+lstm_test_mse = mean_squared_error(y_test_lstm, lstm_test_preds)
+
+print("LSTM Train MSE:", lstm_train_mse)
+print("LSTM Test MSE:", lstm_test_mse)
+
+
+
+
+# Evaluate Ridge Regression
+ridge_reg_train_preds = ridge_reg.predict(X_train)
+ridge_reg_test_preds = ridge_reg.predict(X_test_ridge_reg)
+# Evaluate Lasso Regression
+lasso_reg_train_preds = lasso_reg.predict(X_train)
+lasso_reg_test_preds = lasso_reg.predict(X_test_lasso_reg)
 
 # Step 5: Plotting
 plt.figure(figsize=(14, 7))
