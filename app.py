@@ -69,6 +69,21 @@ def generate_line_chart(data, symbol, period):
     fig = go.Figure(data=[trace], layout=layout)
     return fig.to_html(full_html=False)
 
+
+@app.route('/forecast')
+def forecast():
+    return render_template('forecast.html')
+
+@app.route('/get_image', methods=['POST'])
+def get_image():
+    selected_crypto = request.form['selected_crypto']
+    selected_image = request.form['selected_image']
+    image_path = f"{selected_crypto}_{selected_image}"
+    return render_template('forecast.html', selected_crypto=selected_crypto, selected_image=selected_image, image_path=image_path)
+
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -153,7 +168,7 @@ def plot():
 @app.route('/prediction', methods=['GET', 'POST'])
 def prediction():
     algorithms = ['linear', 'decision_tree', 'random_forest', 'gradient_boosting', 'knn', 'ann']
-    currencies = ['btc', 'eth', 'tron']  # Add more currencies as needed
+    currencies = ['btc', 'mkr', 'yfi','enj']  # Add more currencies as needed
 
     if request.method == 'POST':
         algorithm = request.form.get('algorithm')

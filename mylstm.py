@@ -6,7 +6,7 @@ from keras.models import Sequential
 from keras.layers import LSTM, Dense
 
 # Step 1: Download BTC close price data
-btc_data = yf.download('BTC-USD', start='2022-01-01', end='2023-12-31')
+btc_data = yf.download('ENJ-USD', start='2022-01-01', end='2024-05-02')
 
 # Step 2: Preprocess the data
 scaler = MinMaxScaler(feature_range=(0, 1))

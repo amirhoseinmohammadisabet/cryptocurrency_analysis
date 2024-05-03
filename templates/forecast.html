@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<title>Forecast</title>
+</head>
+<body>
+
+<h1>Forecast</h1>
+<div class="container">
+    <form action="/get_image" method="post">
+        <label for="cryptoSelect">Select Cryptocurrency:</label>
+        <select id="cryptoSelect" name="selected_crypto">
+            <option value="BTC">Bitcoin (BTC)</option>
+            <option value="YFI">Yearn Finance (YFI)</option>
+            <option value="ENJ">Enjin (ENJ)</option>
+            <option value="MKR">Maker (MKR)</option>
+        </select>
+        <br>
+        <!-- Dropdown menu for selecting image -->
+        <label for="imageSelect">Select Image:</label>
+        <select id="imageSelect" name="selected_image">
+            <option value="1.jpg">ARIMA</option>
+            <option value="2.jpg">LSTM</option>
+            <option value="3.jpg">Prophet</option>
+            <option value="4.jpg">Regression</option>
+        </select>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<!-- Image display area -->
+<div id="imageContainer">
+    <img id="displayedImage" src="{{ url_for('static', filename='') }}{{ selected_crypto }}_{{ selected_image }}" alt="Image">
+</div>
+
+</body>
+</html>

@@ -58,7 +58,7 @@ def save_to_csv(dataframe, file_path):
 
 def tosave():
     # Example usage:
-    days = 2000
+    days = 500
     btc_data = get_price_data(days, coin="bitcoin")
     # shiba_data = get_price_data(days, coin="shiba")
     tron_data = get_price_data(days, coin="tron")
@@ -66,8 +66,7 @@ def tosave():
     merged_data = pd.merge(btc_data, tron_data, on="timestamp", suffixes=('_btc', '_tron'))
     # print(btc_data)
 
-    save_to_csv(merged_data, "Data/data.csv")
-
+    save_to_csv(merged_data, "Data/data1.csv")
 
 def crypto_for_clustering():
     import yfinance as yf
